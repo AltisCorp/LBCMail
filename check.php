@@ -9,6 +9,12 @@ if ($key && (!isset($_GET["key"]) || $_GET["key"] != $key)) {
     return;
 }
 
+$lock_filename = $dirname."/configs/.lock";
+if (is_file($lock_filename)) {
+    return;
+}
+file_put_contents($lock_filename, time());
+
 function mail_utf8($to, $subject = '(No subject)', $message = '')
 {
     $subject = "=?UTF-8?B?".base64_encode($subject)."?=";
@@ -69,3 +75,5 @@ foreach ($files AS $file) {
         ConfigManager::saveAlert($alert);
     }
 }
+
+unlink($lock_filename);
