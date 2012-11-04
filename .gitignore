@@ -1,4 +1,4 @@
-configs/config.csv
+configs/*.csv
 .buildpath
 .project
 .settings
