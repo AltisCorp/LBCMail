@@ -5,7 +5,7 @@ $dirname = dirname(__FILE__);
 require $dirname."/lib/lbc.php";
 require $dirname."/ConfigManager.php";
 
-if (isset($_GET["key"]) && $_GET["key"] != $key) {
+if ($key && (!isset($_GET["key"]) || $_GET["key"] != $key)) {
     return;
 }
 
