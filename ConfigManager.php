@@ -97,6 +97,7 @@ class ConfigManager
             $setChmod = true;
         }
         $fp = fopen($filename, "w");
+        flock($fp, LOCK_EX);
         if (self::$_config && is_array(self::$_config)) {
             $alerts = array_values(self::$_config);
             $keys = array_keys($alerts[0]->toArray());
@@ -105,6 +106,7 @@ class ConfigManager
                 fputcsv($fp, array_values($alert->toArray()), ",", '"');
             }
         }
+        flock($fp, LOCK_UN);
         fclose($fp);
         if ($setChmod) {
             chmod($filename, 0777);
