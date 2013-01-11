@@ -40,7 +40,8 @@ foreach ($files AS $file) {
         if (!isset($alert->time_updated)) {
             $alert->time_updated = 0;
         }
-        if (((int)$alert->time_updated + (int)$alert->interval*60) > $currentTime) {
+        if (((int)$alert->time_updated + (int)$alert->interval*60) > $currentTime
+            || $alert->suspend) {
             continue;
         }
         $alert->time_updated = $currentTime;

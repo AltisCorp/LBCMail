@@ -7,6 +7,7 @@ if (empty($alert)) {
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $alert->fromArray(array_map("trim", $_POST));
+    $alert->suspend = !empty($_POST["suspend"])?1:0;
     if (empty($alert->email)) {
         $errors["email"] = "Ce champ est obligatoire.";
     }
@@ -49,6 +50,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <fieldset>
         <legend>Ajouter une alerte</legend>
         <dl>
+            <?php if (isset($_GET["id"])) : ?>
+            <dt>
+                <label for="suspend">Suspendre l'alerte ?</label>
+            </dt>
+            <dd>
+                <input type="radio" name="suspend" value="0"<?php echo $alert->suspend != 1?' checked="checked"':''; ?> /> non
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="suspend" value="1"<?php echo $alert->suspend == 1?' checked="checked"':''; ?> /> oui
+            </dd>
+            <?php endif; ?>
             <dt>
                 <label for="email">E-Mail</label>
             </dt>

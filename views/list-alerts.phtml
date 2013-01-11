@@ -9,6 +9,7 @@
             <th>Intervalle</th>
             <th>Prix</th>
             <th>Villes</th>
+            <th>Actif</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -46,6 +47,9 @@
                 <?php else: ?>
                 -
                 <?php endif; ?>
+            </td>
+            <td>
+                <?php echo $alert->suspend?"non":"oui"; ?>
             </td>
             <td>
                 <a href="?a=form&amp;id=<?php echo $alert->id; ?>">modifier</a> |
