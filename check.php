@@ -9,9 +9,17 @@ if ($key && (!isset($_GET["key"]) || $_GET["key"] != $key)) {
     return;
 }
 
+// Le fichier lock permet d'empêcher le fichier check.php d'être
+// lancé plus d'une fois en même temps.
 $lock_filename = $dirname."/configs/.lock";
 if (is_file($lock_filename)) {
-    return;
+    $currentTime = (int) file_get_contents($lock_filename);
+    if ((time() - $currentTime) < (10 * 60)) {
+        return;
+    }
+    // si le fichier lock existe depuis plus de 10mins
+    // il y a peut-être eu une erreur lors de la dernière exécution.
+    // on ignore alors son existance.
 }
 file_put_contents($lock_filename, time());
 
