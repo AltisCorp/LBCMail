@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $alert->price_strict = false;
     }
+    $alert->group = !empty($_POST["group"])?trim($_POST["group"]):"";
     try {
         $alert->url = Lbc::formatUrl($alert->url);
     } catch (Exception $e) {
@@ -133,6 +134,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <dd>
                 <textarea id="cities" name="cities" cols="30" rows="10"><?php
                     echo htmlspecialchars($alert->cities) ?></textarea>
+            </dd>
+            <dt><label for="group">Groupe</label></dt>
+            <dd>
+                <input id="group" name="group" value="<?php echo htmlspecialchars($alert->group); ?>" />
             </dd>
             <dt>&nbsp;</dt>
             <dd><input type="submit" value="Enregistrer" /></dd>

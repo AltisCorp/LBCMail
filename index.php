@@ -44,24 +44,7 @@ $content = ob_get_clean();
     <head>
         <title>Alerte mail pour Leboncoin.fr</title>
         <meta charset="utf-8">
-        <style type="text/css">
-            table {
-                border: 1px solid #CCCCCC;
-                border-collapse: collapse;
-            }
-            table td, table th {
-                border: 1px solid #DDDDDD;
-                padding: 2px 5px;
-            }
-            .error {
-                color: #EF0000;
-                font-weight: bold;
-                margin: 0;
-            }
-            form dd {
-                margin-bottom: 10px;
-            }
-        </style>
+        <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
         <?php if (isset($error)) : ?>

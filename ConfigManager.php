@@ -13,6 +13,7 @@ class Alert {
     public $price_strict = false;
     public $cities;
     public $suspend = 0;
+    public $group = "";
 
     public function fromArray(array $values)
     {
@@ -35,7 +36,8 @@ class Alert {
             "price_max" => $this->price_max,
             "price_strict" => $this->price_strict,
             "cities" => $this->cities,
-            "suspend" => $this->suspend
+            "suspend" => $this->suspend,
+            "group" => $this->group
         );
     }
 }

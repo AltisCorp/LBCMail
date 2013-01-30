@@ -1,30 +1,47 @@
-<?php $alerts = ConfigManager::getAlerts(); ?>
-<a href="?a=form">Ajouter une alerte</a>
+<?php
+$alerts = ConfigManager::getAlerts();
+// trie les alertes par groupes
+$alertsByGroup = array();
+$groups = array();
+foreach ($alerts AS $alert) {
+    $group = $alert->group?$alert->group:"Sans groupe";
+    $groups[] = $group;
+    $alertsByGroup[$group][] = $alert;
+}
+$groups = array_unique($groups);
+if (in_array("Sans groupe", $groups)) {
+    // met les alertes sans groupe à la fin.
+    unset($groups[array_search("Sans groupe", $groups)]);
+    $groups[] = "Sans groupe";
+}
+?>
+<a href="?a=form" class="link-create-alert">Ajouter une alerte</a>
+<?php if ($groups) : ?>
+<?php foreach ($groups AS $group) : ?>
+<?php if (count($groups) > 1 || $group != "Sans groupe") : ?>
+<h2><?php echo $group != "Sans groupe"?"Groupe : ":""; ?><?php echo htmlspecialchars($group); ?></h2>
+<?php endif; ?>
+<?php $alerts = $alertsByGroup[$group]; ?>
 <table style="width: 100%;">
     <thead>
         <tr>
-            <th>E-Mail</th>
-            <th>Titre</th>
+            <th style="width: 250px">E-Mail</th>
+            <th style="width: 250px">Titre</th>
             <th>URL</th>
-            <th>Intervalle</th>
-            <th>Prix</th>
-            <th>Villes</th>
-            <th>Actif</th>
-            <th>&nbsp;</th>
+            <th style="width: 100px">Intervalle</th>
+            <th style="width: 100px">Prix</th>
+            <th style="width: 200px">Villes</th>
+            <th style="width: 70px">Actif</th>
+            <th style="width: 170px">&nbsp;</th>
         </tr>
     </thead>
     <tbody>
-    <?php if (0 == count($alerts)) : ?>
-        <tr>
-            <td colspan="4">Aucune alertes créées.</td>
-        </tr>
-    <?php else: ?>
         <?php foreach ($alerts AS $alert) : ?>
         <tr>
             <td><?php echo htmlspecialchars($alert->email); ?></td>
-            <td><?php echo htmlspecialchars($alert->title); ?></td>
-            <td>
-                <a href="<?php echo htmlspecialchars($alert->url); ?>"><?php
+            <td><?php echo $alert->title?htmlspecialchars($alert->title):"-"; ?></td>
+            <td class="link">
+                <a href="<?php echo htmlspecialchars($alert->url); ?>" target="_blank"><?php
                     echo str_replace("http://www.leboncoin.fr", "", htmlspecialchars($alert->url)); ?></a>
             </td>
             <td><?php echo (int)$alert->interval; ?> mins</td>
@@ -57,6 +74,7 @@
             </td>
         </tr>
         <?php endforeach; ?>
-    <?php endif; ?>
     </tbody>
 </table>
+<?php endforeach; ?>
+<?php endif; ?>

@@ -1,0 +1,45 @@
+
+html {
+	font-size: 13px;
+	background: #000000;
+	background: linear-gradient(bottom, #FFFFFF, #E0E0E0) no-repeat #E0E0E0;
+	background: linear-gradient(to bottom, #FFFFFF, #E0E0E0) no-repeat #E0E0E0;
+    padding: 30px 10px;
+}
+
+body {
+	margin: 0;
+	background: transparent;
+}
+
+a {
+	text-decoration: none;
+}
+a.link-create-alert {
+	font-size: .9em;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+table {
+    border: 1px solid #999999;
+    border-collapse: collapse;
+    text-align: center;
+    margin: 10px 0;
+    width: 100%;
+}
+table td, table th {
+    border: 1px solid #999999;
+    padding: 2px 5px;
+}
+table td.link {
+    word-wrap: break-word;
+}
+.error {
+    color: #EF0000;
+    font-weight: bold;
+    margin: 0;
+}
+form dd {
+    margin-bottom: 10px;
+}
