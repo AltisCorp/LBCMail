@@ -40,6 +40,18 @@ table td.link {
     font-weight: bold;
     margin: 0;
 }
+form {
+	width: 700px;
+}
+form fieldset {
+    padding: 10px 30px;
+}
+form legend {
+	font-size: 1.5em;
+}
+form dt {
+    font-weight: bold;
+}
 form dd {
-    margin-bottom: 10px;
+    margin: 0 0 20px 0;
 }

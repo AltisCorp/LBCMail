@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <dd>
                 <input type="text" id="email" name="email" value="<?php
                     echo htmlspecialchars($alert->email);
-                ?>" size="30" />
+                ?>" size="50" />
                 <?php if (isset($errors["email"])) : ?>
                 <p class="error"><?php echo $errors["email"]; ?></p>
                 <?php endif; ?>
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <dd>
                 <input type="text" id="title" name="title" value="<?php
                     echo htmlspecialchars($alert->title);
-                ?>" />
+                ?>" size="50" />
                 <?php if (isset($errors["title"])) : ?>
                 <p class="error"><?php echo $errors["title"]; ?></p>
                 <?php endif; ?>
