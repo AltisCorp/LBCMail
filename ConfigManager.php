@@ -60,27 +60,25 @@ class ConfigManager
 
     public static function load()
     {
-        if (!is_file(self::getConfigFile())) {
-            return array();
-        }
-        $fp = fopen(self::getConfigFile(), "r");
-        if (!$header = fgetcsv($fp, 0, ",", '"')) {
-            return array();
-        }
-        $nb = count($header);
-        $config = array();
-        while (false !== $a = fgetcsv($fp, 0, ",", '"')) {
-            $alert = new Alert();
-            for ($i = 0; $i < $nb; $i++) {
-                if (isset($a[$i])) {
-                    $alert->$header[$i] = $a[$i];
+        self::$_config = array();
+        if (is_file(self::getConfigFile())) {
+            $fp = fopen(self::getConfigFile(), "r");
+            if ($header = fgetcsv($fp, 0, ",", '"')) {
+                $nb = count($header);
+                $config = array();
+                while (false !== $a = fgetcsv($fp, 0, ",", '"')) {
+                    $alert = new Alert();
+                    for ($i = 0; $i < $nb; $i++) {
+                        if (isset($a[$i])) {
+                            $alert->$header[$i] = $a[$i];
+                        }
+                    }
+                    $config[$alert->id] = $alert;
                 }
+                fclose($fp);
+                self::$_config = $config;
             }
-            $config[$alert->id] = $alert;
         }
-        fclose($fp);
-        self::$_config = $config;
-        return $config;
     }
 
     public static function save()
