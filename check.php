@@ -2,6 +2,7 @@
 $key = "";
 
 $dirname = dirname(__FILE__);
+require $dirname."/config.php";
 require $dirname."/lib/lbc.php";
 require $dirname."/ConfigManager.php";
 

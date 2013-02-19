@@ -5,14 +5,8 @@
  */
 ini_set("display_errors", true);
 
-/**
- * Définir à true si vous souhaitez activer l'utilisation
- * multi utilisateur.
- */
-define("MULTI_USER", false);
-
 $dirname = dirname(__FILE__);
-
+require $dirname."/config.php";
 require $dirname."/lib/lbc.php";
 require $dirname."/ConfigManager.php";
 
