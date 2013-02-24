@@ -4,6 +4,7 @@ $key = "";
 $dirname = dirname(__FILE__);
 require $dirname."/config.php";
 require $dirname."/lib/lbc.php";
+require $dirname."/lib/Http/Client/Curl.php";
 require $dirname."/ConfigManager.php";
 
 if ($key && (!isset($_GET["key"]) || $_GET["key"] != $key)) {
@@ -34,6 +35,17 @@ function mail_utf8($to, $subject = '(No subject)', $message = '')
     return mail($to, $subject, $message, $headers);
 }
 
+$client = new HttpClientCurl();
+if (defined("USER_AGENT")) {
+    $client->setUserAgent(USER_AGENT);
+}
+if (PROXY_IP) {
+    $client->setProxyIp(PROXY_IP);
+    if (PROXY_PORT) {
+        $client->setProxyPort(PROXY_PORT);
+    }
+}
+
 $files = scandir(dirname(__FILE__)."/configs");
 foreach ($files AS $file) {
     if (false === strpos($file, ".csv")) {
@@ -54,7 +66,10 @@ foreach ($files AS $file) {
             continue;
         }
         $alert->time_updated = $currentTime;
-        $content = file_get_contents($alert->url);
+        if (!$content = $client->request($alert->url)) {
+            error_log("Curl Error : ".$client->getError());
+            continue;
+        }
         $ads = Lbc_Parser::process($content, array(
             "price_min" => $alert->price_min,
             "price_max" => $alert->price_max,
