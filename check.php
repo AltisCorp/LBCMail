@@ -39,9 +39,9 @@ $client = new HttpClientCurl();
 if (defined("USER_AGENT")) {
     $client->setUserAgent(USER_AGENT);
 }
-if (PROXY_IP) {
+if (defined("PROXY_IP") && PROXY_IP) {
     $client->setProxyIp(PROXY_IP);
-    if (PROXY_PORT) {
+    if (defined("PROXY_PORT") && PROXY_PORT) {
         $client->setProxyPort(PROXY_PORT);
     }
 }
