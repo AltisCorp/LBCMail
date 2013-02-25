@@ -11,6 +11,21 @@ if ($key && (!isset($_GET["key"]) || $_GET["key"] != $key)) {
     return;
 }
 
+if (!defined("CHECK_START") || !CHECK_START) {
+    define("CHECK_START", 7);
+}
+if (!defined("CHECK_END") || !CHECK_END) {
+    define("CHECK_END", 24);
+}
+;
+if (24 == $checkEnd = CHECK_END) {
+    $checkEnd = 0;
+}
+$hour = (int)date("G");
+if ($hour < CHECK_START || $hour >= $checkEnd) {
+    return;
+}
+
 // Le fichier lock permet d'empêcher le fichier check.php d'être
 // lancé plus d'une fois en même temps.
 $lock_filename = $dirname."/configs/.lock";

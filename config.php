@@ -12,6 +12,14 @@ define("MULTI_USER", false); // valeur true ou false
 define("USER_AGENT", "Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.6) Gecko/20100628 Ubuntu/10.04 (lucid) Firefox/3.6.6");
 
 
+#
+# Plage de fonctionnement.
+# Défaut : de 7h à 24h.
+###########################
+define("CHECK_START", 7);
+define("CHECK_END", 24);
+
+
 /**
  * PROXY
  */
