@@ -6,7 +6,10 @@
 ini_set("display_errors", true);
 
 $dirname = dirname(__FILE__);
-require $dirname."/config.php";
+$configFile = $dirname."/config.php";
+if (is_file($configFile)) {
+    require $configFile;
+}
 require $dirname."/lib/lbc.php";
 require $dirname."/ConfigManager.php";
 
