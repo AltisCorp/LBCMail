@@ -14,18 +14,16 @@ if ($key && (!isset($_GET["key"]) || $_GET["key"] != $key)) {
     return;
 }
 
-if (!defined("CHECK_START") || !CHECK_START) {
+if (!defined("CHECK_START")) {
     define("CHECK_START", 7);
 }
-if (!defined("CHECK_END") || !CHECK_END) {
+if (!defined("CHECK_END")) {
     define("CHECK_END", 24);
 }
-;
-if (24 == $checkEnd = CHECK_END) {
-    $checkEnd = 0;
-}
+$checkStart = CHECK_START > 23?0:CHECK_START;
+$checkEnd = !CHECK_END?24:CHECK_END;
 $hour = (int)date("G");
-if ($hour < CHECK_START || $hour >= $checkEnd) {
+if ($hour < $checkStart || $hour >= $checkEnd) {
     return;
 }
 
