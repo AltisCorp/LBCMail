@@ -2,13 +2,7 @@
 $key = "";
 
 $dirname = dirname(__FILE__);
-$configFile = $dirname."/config.php";
-if (is_file($configFile)) {
-    require $configFile;
-}
-require $dirname."/lib/lbc.php";
-require $dirname."/lib/Http/Client/Curl.php";
-require $dirname."/ConfigManager.php";
+require $dirname."/bootstrap.php";
 
 if ($key && (!isset($_GET["key"]) || $_GET["key"] != $key)) {
     return;
@@ -24,6 +18,11 @@ $checkStart = CHECK_START > 23?0:CHECK_START;
 $checkEnd = !CHECK_END?24:CHECK_END;
 $hour = (int)date("G");
 if ($hour < $checkStart || $hour >= $checkEnd) {
+    return;
+}
+
+if (!testHTTPConnection($client)) {
+    // impossible d'effectuer une connexion.
     return;
 }
 
@@ -51,16 +50,7 @@ function mail_utf8($to, $subject = '(No subject)', $message = '')
     return mail($to, $subject, $message, $headers);
 }
 
-$client = new HttpClientCurl();
-if (defined("USER_AGENT")) {
-    $client->setUserAgent(USER_AGENT);
-}
-if (defined("PROXY_IP") && PROXY_IP) {
-    $client->setProxyIp(PROXY_IP);
-    if (defined("PROXY_PORT") && PROXY_PORT) {
-        $client->setProxyPort(PROXY_PORT);
-    }
-}
+$client->setDownloadBody(true);
 
 $files = scandir(dirname(__FILE__)."/configs");
 foreach ($files AS $file) {
