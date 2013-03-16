@@ -117,4 +117,6 @@ foreach ($files AS $file) {
     }
 }
 
-unlink($lock_filename);
+if (is_file($lock_filename)) {
+    unlink($lock_filename);
+}
