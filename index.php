@@ -11,6 +11,7 @@ if (is_file($configFile)) {
     require $configFile;
 }
 require $dirname."/lib/lbc.php";
+require $dirname."/lib/Http/Client/Curl.php";
 require $dirname."/ConfigManager.php";
 
 if (!empty($_SERVER["PHP_AUTH_USER"])) {
@@ -25,11 +26,27 @@ if (isset($_GET["a"])) {
     $view = $_GET["a"];
 }
 $view .= ".phtml";
-$fp = @fopen("http://www.leboncoin.fr", "r");
-if (!$fp || false === fgetc($fp)) {
-    $error = "Cet hébergement ne semble pas permettre la récupération d'information. distantes. L'application ne fonctionnera pas.";
-} else {
-    fclose($fp);
+
+$client = new HttpClientCurl();
+if (defined("USER_AGENT")) {
+    $client->setUserAgent(USER_AGENT);
+}
+if (defined("PROXY_IP") && PROXY_IP) {
+    $client->setProxyIp(PROXY_IP);
+    if (defined("PROXY_PORT") && PROXY_PORT) {
+        $client->setProxyPort(PROXY_PORT);
+    }
+}
+$client->setDownloadBody(false);
+$client->request("http://www.google.fr");
+if (200 == $client->getRespondCode()) {
+    // le proxy semble fonctionner.
+    $client->request("http://www.leboncoin.fr");
+    if (200 != $client->getRespondCode()) {
+        $error = "Cet hébergement ne semble pas permettre la ".
+            "récupération d'information. distantes. L'application".
+            " ne fonctionnera pas.";
+    }
 }
 
 ob_start();
