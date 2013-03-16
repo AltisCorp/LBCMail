@@ -42,10 +42,12 @@ class HttpClientCurl extends HttpClientAbstract
         if ($userAgent = $this->getUserAgent()) {
             curl_setopt($this->_resource, CURLOPT_USERAGENT, $userAgent);
         }
+        curl_setopt($this->_resource, CURLOPT_NOBODY, !$this->_download_body);
         curl_setopt($this->_resource, CURLOPT_URL, $this->getUrl());
         if (false === $body = curl_exec($this->_resource)) {
             return false;
         }
+        $this->_respond_code = curl_getinfo($this->_resource, CURLINFO_HTTP_CODE);
         $this->_body = $body;
         return $this->_body;
     }

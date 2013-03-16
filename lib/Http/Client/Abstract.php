@@ -9,6 +9,8 @@ abstract class HttpClientAbstract
     protected $_method;
     protected $_user_agent;
     protected $_body;
+    protected $_download_body = true;
+    protected $_respond_code;
 
     const METHOD_GET = "get";
     const METHOD_POST = "post";
@@ -126,11 +128,29 @@ abstract class HttpClientAbstract
     }
 
     /**
+     * @param bool $download_body
+     * @return HttpClientAbstract
+     */
+    public function setDownloadBody($download_body)
+    {
+        $this->_download_body = (bool)$download_body;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getBody()
     {
         return $this->_body;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRespondCode()
+    {
+        return $this->_respond_code;
     }
 
     abstract function request();
