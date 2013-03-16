@@ -11,7 +11,9 @@ class HttpClientCurl extends HttpClientAbstract
         $this->_resource = curl_init();
         curl_setopt($this->_resource, CURLOPT_HEADER, false);
         curl_setopt($this->_resource, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->_resource, CURLOPT_FOLLOWLOCATION, true);
+        if (!ini_get("safe_mode")) {
+            curl_setopt($this->_resource, CURLOPT_FOLLOWLOCATION, true);
+        }
         curl_setopt($this->_resource, CURLOPT_CONNECTTIMEOUT, 30);
     }
 
