@@ -17,15 +17,31 @@ require $dirname."/lib/lbc.php";
 require $dirname."/lib/Http/Client/Curl.php";
 require $dirname."/ConfigManager.php";
 
+// initialisation des constantes.
+if (!defined("MULTI_USER")) {
+    define("MULTI_USER", false);
+}
+if (!defined("PROXY_IP")) {
+    define("PROXY_IP", "");
+}
+if (!defined("PROXY_PORT")) {
+    define("PROXY_PORT", "");
+}
+if (!defined("CHECK_START")) {
+    define("CHECK_START", 7);
+}
+if (!defined("CHECK_END")) {
+    define("CHECK_END", 24);
+}
 
 // initialise le client HTTP.
 $client = new HttpClientCurl();
 if (defined("USER_AGENT")) {
     $client->setUserAgent(USER_AGENT);
 }
-if (defined("PROXY_IP") && PROXY_IP) {
+if (PROXY_IP) {
     $client->setProxyIp(PROXY_IP);
-    if (defined("PROXY_PORT") && PROXY_PORT) {
+    if (PROXY_PORT) {
         $client->setProxyPort(PROXY_PORT);
     }
 }

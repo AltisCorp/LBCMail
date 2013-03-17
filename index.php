@@ -37,7 +37,7 @@ $content = ob_get_clean();
             <p>Message retourné : <?php echo $error = $client->getError()?$error:"aucun"; ?>.</p>
             <ul>
                 <li>Vérifiez que votre hébergement permet des connexions distantes.</li>
-                <?php if (defined("PROXY_IP") && PROXY_IP && defined("PROXY_PORT") && PROXY_PORT) : ?>
+                <?php if (PROXY_IP && PROXY_PORT) : ?>
                 <li>Vérifiez si votre proxy fonctionne correctement.</li>
                 <?php endif; ?>
             </ul>
