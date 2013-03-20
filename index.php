@@ -34,7 +34,7 @@ $content = ob_get_clean();
         <?php if (!testHTTPConnection($client)) : ?>
         <div style="color: #EF0000; font-weight: bold;">
             <p>Erreur lors du test de connexion :</p>
-            <p>Message retourné : <?php echo $error = $client->getError()?$error:"aucun"; ?>.</p>
+            <p>Message retourné : <?php echo ($error = $client->getError())?$error:"aucun"; ?>.</p>
             <ul>
                 <li>Vérifiez que votre hébergement permet des connexions distantes.</li>
                 <?php if (PROXY_IP && PROXY_PORT) : ?>
