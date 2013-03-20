@@ -36,6 +36,7 @@ $content = ob_get_clean();
             <p>Erreur lors du test de connexion :</p>
             <p>Message retourné : <?php echo ($error = $client->getError())?$error:"aucun"; ?>.</p>
             <ul>
+                <li>Un message comme "connection time out" peut signifier que Leboncoin bloque vos connexions.</li>
                 <li>Vérifiez que votre hébergement permet des connexions distantes.</li>
                 <?php if (PROXY_IP && PROXY_PORT) : ?>
                 <li>Vérifiez si votre proxy fonctionne correctement.</li>
